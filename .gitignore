@@ -1,0 +1,7 @@
+db.sqlite3
+*.pyc
+__pycache__
+.idea/
+mysite/settings/local.py
+mysite/settings/local.pyc
+static/

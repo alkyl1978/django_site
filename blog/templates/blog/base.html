@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>MyBlog</title>
+        <link rel="stylesheet" href="{% static "blog/css/bootstrap.min.css" %}">
+        <link rel="stylesheet" href="{% static "blog/css/sticky-footer.css" %}">
+    </head>
+<body>
+     {% block content %}
+     	пустой блок
+     {% endblock %}
+     {% block footer %}
+     	{% include 'blog/footer.html'%}
+     {% endblock %}
+<script src="{% static "blog/js/jquery-3.2.1.min.js" %}"></script>
+<script src="{% static "blog/js/bootstrap.min.js" %}"></script>
+</body>
+</html>

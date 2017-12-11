@@ -1,0 +1,16 @@
+запись  зависимостей
+pip freeze > requirements.txt
+
+установка зависимостей
+pip install -r requirements.txt
+
+настройка eclipce
+если выскакивает ошибка speedups using cython not found
+
+то зайти в плагины eclipce plugins/org.python.pydev ***
+и выполнить команду
+
+python2.7 setup_cython.py build_ext --inplace
+
+
+
