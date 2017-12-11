@@ -1,0 +1,13 @@
+.form_login
+{
+	background: #d9dabb; 
+	text-align: center; 
+	margin: auto;
+	position: absolute;
+	width: auto;
+    height: 35px;
+	top: 0; left: auto; bottom: 0; right: 20px;
+	.box {
+			display: inline-block;
+		 }
+}
