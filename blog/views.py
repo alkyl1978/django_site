@@ -2,7 +2,10 @@
 
 from django.shortcuts import render
 from .models import Post
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView ,TemplateView
+
+class MainView(TemplateView):
+    template_name="blog/app_main.html"
 
 class PostsListView(ListView):
     model = Post
