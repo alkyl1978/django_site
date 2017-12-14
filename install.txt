@@ -1,3 +1,6 @@
+запуск celery
+celery -A mysite worker -l info -E
+
 запись  зависимостей
 pip freeze > requirements.txt
 
