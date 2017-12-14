@@ -6,6 +6,7 @@ Cython==0.27.3
 decorator==4.1.2
 Django==1.11.7
 django-ipware==1.1.6
+django-redis==4.8.0
 djangorestframework==3.7.3
 enum34==1.1.6
 funcsigs==1.0.2
@@ -22,6 +23,7 @@ prompt-toolkit==1.0.15
 ptyprocess==0.5.2
 Pygments==2.2.0
 pytz==2017.3
+redis==2.10.6
 scandir==1.6
 simplegeneric==0.8.1
 six==1.11.0
