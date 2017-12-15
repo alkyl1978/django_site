@@ -11,7 +11,6 @@ class Post(models.Model):
     date_create = models.DateTimeField(u'Дата публикации', auto_now_add=True) # дата публикации
     date_update = models.DateTimeField(u'Дата обновления', auto_now_add=True)
     content = models.TextField(max_length=10000) # текст поста
-    autor = models.ForeignKey(User, blank=True)
     class Meta:
         pass
     
