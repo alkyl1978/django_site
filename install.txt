@@ -1,5 +1,8 @@
+запуск uwsgi 
+uwsgi --http :8000 --module mysite.wsgi
+
 запуск celery
-celery -A mysite worker -l info -E
+celery -A mysite worker -l info -E -B
 
 запись  зависимостей
 pip freeze > requirements.txt

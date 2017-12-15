@@ -7,6 +7,7 @@ decorator==4.1.2
 Django==1.11
 django-celery-beat==1.1.0
 django-redis==4.8.0
+django-uwsgi==0.2.1
 djangorestframework==3.7.3
 enum34==1.1.6
 ephem==3.7.6.0
@@ -26,5 +27,6 @@ scandir==1.6
 simplegeneric==0.8.1
 six==1.11.0
 traitlets==4.3.2
+uWSGI==2.0.15
 vine==1.1.4
 wcwidth==0.1.7
