@@ -6,3 +6,4 @@ __pycache__
 mysite/settings/local.py
 mysite/settings/local.pyc
 migrations
+static/
