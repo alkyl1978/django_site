@@ -1,3 +1,6 @@
+запуск gunicorn
+gunicorn mysite.uwsgi
+
 запуск uwsgi 
 uwsgi --http :8000 --module mysite.wsgi
 
