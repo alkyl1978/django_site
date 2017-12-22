@@ -10,7 +10,9 @@ urlpatterns = [
     url(r'^api/'  , include('api.urls')),
     url(r'^$', MainView.as_view() ,name='app_main'),
     url(r'^login/$' ,LoginView.as_view(template_name='blog/login.html') , name='login'),
-    url(r'^gitweb/' ,include('gitweb.urls'))
+    url(r'^gitweb/' ,include('gitweb.urls')),
+    url(r'^telegrambot/' ,include(telegrambot.urls)),
+    
 ]
 
 urlpatterns += staticfiles_urlpatterns()
