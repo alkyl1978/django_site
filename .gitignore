@@ -5,6 +5,6 @@ __pycache__
 .idea/
 mysite/settings/local.py
 mysite/settings/local.pyc
-migrations
-static/
+migrations/
+/static/
 log/
