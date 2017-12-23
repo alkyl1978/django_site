@@ -62,7 +62,7 @@ class Message(models.Model):
     class Meta:
         verbose_name = 'Message'
         verbose_name_plural = 'Messages'
-        ordering = ['-date', ]
+        ordering = '-date'
 
     def __str__(self):
         return "(%s,%s)" % (self.from_user, self.text or '(no text)')
