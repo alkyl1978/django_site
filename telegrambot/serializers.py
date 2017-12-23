@@ -39,7 +39,7 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Message
-        field = ( 'from_user' ,'date' , 'chat' , 'forward_from' ,'text')
+        field = '__all__'
 
 
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
