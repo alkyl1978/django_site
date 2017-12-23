@@ -31,7 +31,6 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     message_id = serializers.IntegerField()
-    # reserved word field 'from' changed dynamically
     from_ = UserSerializer(many=False, source="from_user")
     chat = ChatSerializer(many=False)
     date = TimestampField()
@@ -39,7 +38,7 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Message
-        fields = ( 'from_user' ,'date' , 'chat' , 'forward_from' ,'text')
+        fields = ( 'message_id' , 'from_user' ,'date' , 'chat' , 'forward_from' ,'text')
 
 
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
