@@ -11,7 +11,7 @@ class User(models.Model):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
-    def __str__(self):
+    def __unicode__(self):
         if self.first_name:
             return "%s" % self.first_name
         elif self.username:
@@ -42,7 +42,7 @@ class Chat(models.Model):
         verbose_name = 'Chat'
         verbose_name_plural = 'Chats'
 
-    def __str__(self):
+    def __unicode__(self):
         return "%s" % (self.title or self.username)
     
     def is_authenticated(self):
@@ -62,9 +62,8 @@ class Message(models.Model):
     class Meta:
         verbose_name = 'Message'
         verbose_name_plural = 'Messages'
-        ordering = '-date'
 
-    def __str__(self):
+    def __unicode__(self):
         return "(%s,%s)" % (self.from_user, self.text or '(no text)')
     
 class Update(models.Model):
@@ -77,5 +76,5 @@ class Update(models.Model):
         verbose_name = 'Update'
         verbose_name_plural = 'Updates'
     
-    def __str__(self):
+    def __unicode__(self):
         return "%s" % self.update_id    
