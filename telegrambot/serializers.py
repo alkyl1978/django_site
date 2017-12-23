@@ -31,7 +31,7 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     message_id = serializers.IntegerField()
-    from_user = UserSerializer(many=False)
+    from_ = UserSerializer(many=False)
     chat = ChatSerializer(many=False)
     date = TimestampField()
     text = serializers.CharField(required=True)
