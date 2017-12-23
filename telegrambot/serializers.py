@@ -39,7 +39,7 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Message
-        field = '__all__'
+        fields = '__all__'
 
 
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
