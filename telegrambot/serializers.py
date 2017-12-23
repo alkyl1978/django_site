@@ -31,16 +31,19 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     message_id = serializers.IntegerField()
-    from = serializers.JSONField()
+    from_ = UserSerializer(many=False, source="from_user")
     chat = ChatSerializer(many=False)
     date = TimestampField()
     text = serializers.CharField(required=True)
-    entities = serializers.JSONField()
     
     class Meta:
         model = Message
-        fields = '__all__'
-
+        fields = ('message_id', 'from_', 'date', 'chat', 'text')
+        
+    def __init__(self, *args, **kwargs):
+        super(MessageSerializer, self).__init__(*args, **kwargs)
+        self.fields['from'] = self.fields['from_']
+        del self.fields['from_']
 
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     update_id = serializers.IntegerField()
