@@ -1,0 +1,17 @@
+{
+"message":
+
+{
+"from":
+ {"username": "Aleks_kilikov", "first_name": "Aleks", "is_bot": "False", "id": 116019505, "language_code": "en"} ,
+
+"text": "/start",
+
+"entities": [{"length": 6, "type": "bot_command", "offset": 0}],
+
+"chat": {"username": "Aleks_kilikov", "first_name": "Aleks", "type": "private", "id": 116019505},
+
+"date": 1514005298, "message_id": 11},
+
+"update_id": 345449405}
+

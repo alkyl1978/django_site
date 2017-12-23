@@ -52,3 +52,7 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Update
         fields = ('update_id', 'message')
+    
+    def create(self, validated_data):
+        return validated_data
+        
