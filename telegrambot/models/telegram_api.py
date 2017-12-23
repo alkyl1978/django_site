@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
 
-@python_2_unicode_compatible
 class User(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    first_name = models.CharField(_('First name'), max_length=255)
-    last_name = models.CharField(_('Last name'), max_length=255, blank=True, null=True)
-    username = models.CharField(_('User name'), max_length=255, blank=True, null=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    username = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
     def __str__(self):
         if self.first_name:
@@ -22,16 +19,16 @@ class User(models.Model):
         else:
             return "%d" % self.id
 
-@python_2_unicode_compatible
+
 class Chat(models.Model):
 
     PRIVATE, GROUP, SUPERGROUP, CHANNEL = 'private', 'group', 'supergroup', 'channel'
 
     TYPE_CHOICES = (
-        (PRIVATE, _('Private')),
-        (GROUP, _('Group')),
-        (SUPERGROUP, _('Supergroup')),
-        (CHANNEL, _('Channel')),
+        (PRIVATE, 'Private'),
+        (GROUP, 'Group'),
+        (SUPERGROUP, 'Supergroup'),
+        (CHANNEL, 'Channel'),
     )
 
     id = models.BigIntegerField(primary_key=True)
@@ -42,8 +39,8 @@ class Chat(models.Model):
     last_name = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
-        verbose_name = _('Chat')
-        verbose_name_plural = _('Chats')
+        verbose_name = 'Chat'
+        verbose_name_plural = 'Chats'
 
     def __str__(self):
         return "%s" % (self.title or self.username)
@@ -51,17 +48,16 @@ class Chat(models.Model):
     def is_authenticated(self):
         return hasattr(self, 'auth_token') and not self.auth_token.expired()
 
-@python_2_unicode_compatible
 class Message(models.Model):
 
-    message_id = models.BigIntegerField(_('Id'), primary_key=True)
-    from_user = models.ForeignKey(User, related_name='messages', verbose_name=_("User"))
-    date = models.DateTimeField(_('Date'))
-    chat = models.ForeignKey(Chat, related_name='messages', verbose_name=_("Chat"))
+    message_id = models.BigIntegerField( primary_key=True)
+    from_user = models.ForeignKey(User, related_name='messages', verbose_name="User")
+    date = models.DateTimeField('Date')
+    chat = models.ForeignKey(Chat, related_name='messages', verbose_name="Chat")
     forward_from = models.ForeignKey(User, null=True, blank=True, related_name='forwarded_from',
-                                     verbose_name=_("Forward from"))
-    text = models.TextField(null=True, blank=True, verbose_name=_("Text"))
-    #  TODO: complete fields with all message fields
+                                     verbose_name="Forward from")
+    text = models.TextField(null=True, blank=True, verbose_name="Text")
+    
 
     class Meta:
         verbose_name = 'Message'
@@ -73,8 +69,8 @@ class Message(models.Model):
     
 class Update(models.Model):
     
-    update_id = models.BigIntegerField(_('Id'), primary_key=True)
-    message = models.ForeignKey(Message, null=True, blank=True, verbose_name=_('Message'), 
+    update_id = models.BigIntegerField('Id', primary_key=True)
+    message = models.ForeignKey(Message, null=True, blank=True, verbose_name='Message', 
                                 related_name="updates")
     
     class Meta:
