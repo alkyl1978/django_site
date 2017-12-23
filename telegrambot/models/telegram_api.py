@@ -51,7 +51,7 @@ class Chat(models.Model):
 class Message(models.Model):
 
     message_id = models.BigIntegerField( primary_key=True)
-    from_user = models.ForeignKey(User, related_name='messages', verbose_name="User")
+    from_ = models.ForeignKey(User, related_name='messages', verbose_name="User")
     date = models.DateTimeField('Date')
     chat = models.ForeignKey(Chat, related_name='messages', verbose_name="Chat")
     forward_from = models.ForeignKey(User, null=True, blank=True, related_name='forwarded_from',
