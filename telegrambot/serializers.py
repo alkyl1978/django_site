@@ -34,8 +34,8 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     from_user = UserSerializer(many=False)
     chat = ChatSerializer(many=False)
     date = TimestampField()
-    text = serializers.CharField(required=True , source="text")
-    entities = serializers.JSONField(source="entities")
+    text = serializers.CharField(required=True)
+    entities = serializers.JSONField()
     
     class Meta:
         model = Message
