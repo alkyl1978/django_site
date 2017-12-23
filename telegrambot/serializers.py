@@ -5,6 +5,7 @@ from datetime import datetime
 import time
 
 
+
 class TimestampField(serializers.Field):
 
     def to_internal_value(self, data):
@@ -35,6 +36,10 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     chat = ChatSerializer(many=False)
     date = TimestampField()
     text = serializers.CharField(required=True)
+    
+    class Meta:
+        model = Message
+        field = __all__
 
 
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
