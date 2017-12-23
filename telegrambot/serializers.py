@@ -27,7 +27,7 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Chat
-        fields = ('id', 'type', 'title', 'username', 'first_name', 'last_name')
+        fields = ('id', 'type', 'username', 'first_name')
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     message_id = serializers.IntegerField()
