@@ -44,7 +44,7 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
 
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     update_id = serializers.IntegerField()
-    message = MessageSerializer(many=False, source="message")
+    message = MessageSerializer(many=False)
     
     class Meta:
         model = Update
