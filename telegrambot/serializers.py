@@ -31,10 +31,11 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     message_id = serializers.IntegerField()
-    from_ = UserSerializer(many=False, source="from_user")
-    chat = ChatSerializer(many=False)
+    from_user = UserSerializer(many=False, source="from_user" , format="json")
+    chat = ChatSerializer(many=False, source="chat" , format="json")
     date = TimestampField()
-    text = serializers.CharField(required=True)
+    text = serializers.CharField(required=True , source="text")
+    entities = serializers.JSONField(source="entities")
     
     class Meta:
         model = Message
@@ -43,7 +44,7 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
 
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     update_id = serializers.IntegerField()
-    message = MessageSerializer(many=False)
+    message = MessageSerializer(many=False, source="message" ,format="json")
     
     class Meta:
         model = Update
