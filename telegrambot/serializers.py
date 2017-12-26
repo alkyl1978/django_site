@@ -3,7 +3,9 @@ from rest_framework import serializers
 from telegrambot.models import User, Chat, Message, Update
 from datetime import datetime
 import time
+import logging
 
+logger = logging.getLogger('telegrambot')
 
 
 class TimestampField(serializers.Field):
@@ -54,5 +56,6 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('update_id', 'message')
     
     def create(self, validated_data):
+        logger.info(validated_data)
         return validated_data
         
