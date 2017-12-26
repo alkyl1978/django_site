@@ -59,9 +59,6 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
         logger.info(validated_data)
         update_id = validated_data.get('update_id')
         mesage_put=validated_data.get('message')
-        mes = message(mesage_put)
-        if mes.is_valid():
-            mes.save()
-        logger.info(message)
+        logger.info(self.message)
         return validated_data
         
