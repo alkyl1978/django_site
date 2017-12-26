@@ -6,3 +6,7 @@ class Bot(models.Model):
     class Meta:
         verbose_name = 'Bot'
         verbose_name_plural = 'Bots'
+    
+    def __unicode__(self):
+        return 'bot telegramm'
+    
