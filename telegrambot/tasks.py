@@ -8,7 +8,7 @@ import json
 logger = logging.getLogger('telegrambot')
 
 @shared_task(ignore_result=True)
-def bot_update(data=0 ,token=0):
+def bot_update(data ,token):
     update = Update.de_json(data, token)
     logger.info(update.message)
     return

@@ -12,12 +12,11 @@ logger = logging.getLogger('telegrambot')
 
 class WebhookView(APIView):
     def post(self, request, token):
-        bot_update.delay(data=request.data)
         serializer = UpdateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             bot = Bot.objects.get(bot=token)
             if bot:
-                 bot_update.delay(data=request.data, token=token)
+                 bot_update.delay(request.data, token)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
