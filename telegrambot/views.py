@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from telegrambot.serializers import UpdateSerializer
 from rest_framework import status
+from .tasks import bot_update
 import logging
 
 logger = logging.getLogger('telegrambot')
@@ -11,6 +12,7 @@ logger = logging.getLogger('telegrambot')
 class WebhookView(APIView):
     def post(self, request, token):
         logger.info(request.data)
+        bot_update.delay(request.data)
         serializer = UpdateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
