@@ -61,6 +61,7 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
         
     def create(self, validated_data):
         update_id = validated_data.pop('update_id')
-        inst = Update.objects.create(**validated_data)
-        return inst
+        message = validated_data.pop('message')
+        logger.info(validated_data)
+        return validated_data
 
