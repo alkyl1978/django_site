@@ -8,5 +8,5 @@ class Bot(models.Model):
         verbose_name_plural = 'Bots'
     
     def __unicode__(self):
-        return 'bot telegramm'
+        return self.bot
     
