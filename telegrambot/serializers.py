@@ -64,7 +64,7 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         update_id = validated_data.get('update_id')
         message = validated_data.get('message')
-        return validated_data
+        return super(UpdateSerializer.create(self, validated_data))
     
     def to_representation(self, instance):
         ret = super(UpdateSerializer.to_representation(self, instance))
