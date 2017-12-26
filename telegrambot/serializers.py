@@ -47,6 +47,8 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
         self.fields['from'] = self.fields['from_']
         del self.fields['from_']
         
+    def 
+    
     def create(self, validated_data):
         logger.info(validated_data)
         return validated_data
@@ -62,7 +64,8 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         update_id = validated_data.get('update_id')
         message = validated_data.get('message')
-        if self.message.is_valid():
-             self.message.save()
         return validated_data
-
+    
+    def to_representation(self, instance):
+        ret = super(UpdateSerializer.to_representation(self, instance))
+        return ret
