@@ -57,5 +57,6 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     
     def create(self, validated_data):
         logger.info(validated_data)
-        return validated_data
+        up = Update.objects.create(**validated_data)
+        return up
         
