@@ -55,4 +55,10 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Update
         fields = ('update_id', 'message')
+        
+    def create(self, validated_data):
+        logger.info(validated_data)
+        update_id = validated_data.pop('update_id')
+        inst = Update.objects.create(**validated_data)
+        return inst
 
