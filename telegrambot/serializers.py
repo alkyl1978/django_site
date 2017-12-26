@@ -55,4 +55,4 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Update
         fields = ('update_id', 'message')
-    
+
