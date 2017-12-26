@@ -6,7 +6,7 @@ from telegrambot.serializers import UpdateSerializer
 from rest_framework import status
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('telegrambot')
 
 class WebhookView(APIView):
     def post(self, request, token):
