@@ -17,6 +17,6 @@ class WebhookView(APIView):
             serializer.save()
             bot = Bot.objects.get(bot=token)
             if bot:
-                 bot_update.delay(request.data, token)
+                 bot_update.delay(request.data, token , kwarg1='data' , kwarg2='token')
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
