@@ -46,9 +46,7 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
         super(MessageSerializer, self).__init__(*args, **kwargs)
         self.fields['from'] = self.fields['from_']
         del self.fields['from_']
-        
-    def create(self, validated_data):
-        logger.info('message==' , validated_data)
+
 
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     update_id = serializers.IntegerField()
@@ -59,6 +57,5 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('update_id', 'message')
     
     def create(self, validated_data):
-        logger.info(self.message)
         return validated_data
         
