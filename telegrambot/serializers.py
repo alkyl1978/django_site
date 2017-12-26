@@ -65,6 +65,3 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
         logger.info(self)
         return validated_data
     
-    def to_representation(self, instance):
-        ret = super(UpdateSerializer.to_representation(self, instance))
-        return ret
