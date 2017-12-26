@@ -46,8 +46,6 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
         super(MessageSerializer, self).__init__(*args, **kwargs)
         self.fields['from'] = self.fields['from_']
         del self.fields['from_']
-        
-    def 
     
     def create(self, validated_data):
         logger.info(validated_data)
