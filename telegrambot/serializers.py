@@ -22,7 +22,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'username')
+        fields = ('id', 'first_name', 'username','is_bot' , 'language_code')
 
 class ChatSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField()
@@ -61,5 +61,12 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
         
     def create(self, validated_data):
         print validated_data
+        user_bot = validated_data.get('message').get('from_user')
+        chat_bot = validated_data.get('message').get('chat')
+        mod_chat_bot = Chat.objects.create(**chat_bot)
+        mod_user_bot = User.objects.create(**user_bot)
+        mod_user_bot.save()
+        mod_chat_bot.save()
+        
         return validated_data
     
