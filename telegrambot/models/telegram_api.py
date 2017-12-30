@@ -6,6 +6,8 @@ class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     username = models.CharField(max_length=255, blank=True, null=True)
+    language_code = models.CharField(max_length=10 , blank=True , null=True)
+    is_bot = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'User'
