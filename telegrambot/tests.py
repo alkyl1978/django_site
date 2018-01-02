@@ -30,5 +30,11 @@ class UpdateMessageTest(TestCase):
          serializer = UpdateSerializer(data=self.data)
          self.assertTrue(serializer.is_valid())
          serializer.save()
-         self.assertEqual(User.objects.count(), 1)
-         self.assertEqual(Chat.objects.count(), 1)
+         self.assertEqual(User.objects.count(),1)
+         self.assertEqual(Chat.objects.count(),1)
+
+         serializer = UpdateSerializer(data=self.data)
+         self.assertTrue(serializer.is_valid())
+         serializer.save()
+         self.assertEqual(User.objects.count(),1)
+         self.assertEqual(Chat.objects.count(),1)
