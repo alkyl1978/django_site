@@ -7,21 +7,6 @@ import logging
 
 logger = logging.getLogger('telegrambot')
 
-
-class TimestampField(serializers.Field):
-
-    def to_internal_value(self, data):
-        print 'def to_internal_value data = {}' .format(data)
-        try:
-             return datetime.fromtimestamp(data)
-        except TypeError:
-             return data
-
-    def to_representation(self, value):
-        print 'def to_representation value = {}'.format(value)
-        return int(time.mktime(value.timetuple()))
-
-
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField()
 
@@ -52,26 +37,29 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     message_id = serializers.IntegerField()
-    from_ = UserSerializer(many=False, source="from_user")
-    chat = ChatSerializer(many=False)
-    date = TimestampField()
-    text = serializers.CharField(required=True)
+    from_user  = UserSerializer(many=False)
+    chat       = ChatSerializer(many=False)
+    date       = serializers.IntegerField()
+    text       = serializers.CharField(required=True)
     
     class Meta:
         model = Message
-        fields = ('message_id', 'from_', 'date', 'chat', 'text')
-        
-    def __init__(self, *args, **kwargs):
-        super(MessageSerializer, self).__init__(*args, **kwargs)
-        self.fields['from'] = self.fields['from_']
-        del self.fields['from_']
+        fields = ('message_id', 'from_user', 'date', 'chat', 'text')
+
+    def to_internal_value(self, data):
+        if data.get('from'):
+            data['from_user']=data.pop('from')
+        return data
 
     def create(self, validated_data):
-        mod = self.Meta.model.objects.filter(message_id=validated_data.get('message_id'))
-        if not mod:
-            mod=mod.create(**validated_data)
-            mod.save()
-        return mod
+        data_user = validated_data.pop('from_user').get('id')
+        data_chat = validated_data.pop('chat').get('id')
+        message_id = validated_data.get('message_id')
+        mod_mesg = self.Meta.model.objects.filter(message_id=message_id)
+        if not mod_mesg:
+            mod_mesg=mod_mesg.create(from_user=data_user,chat=data_chat,**validated_data)
+            mod_mesg.save()
+        return mod_mesg
     
 class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     update_id = serializers.IntegerField()
@@ -80,26 +68,27 @@ class UpdateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Update
         fields = ('update_id', 'message')
-        
+
     def create(self, validated_data):
         user_bot = validated_data.get('message').get('from_user')
         chat_bot = validated_data.get('message').get('chat')
         mesg_bot = validated_data.get('message')
-        update_bot = validated_data.get('update_id')
+        update_bot = validated_data.pop('update_id')
         user_ser = UserSerializer(data=user_bot)
         if user_ser.is_valid():
              user_ser.save()
+             print 'USER is_valid'
         chat_ser = ChatSerializer(data=chat_bot)
         if chat_ser.is_valid():
              chat_ser.save()
-        dat = mesg_bot.pop('date')
-        mesg_bot.append('date',)
+             print 'CHAT is_valid'
         mesg_ser = MessageSerializer(data=mesg_bot)
         if mesg_ser.is_valid():
-            mesg_mod = mesg_ser.save()
-        mod = self.Meta.model.objects.filter(update_id=validated_data.get('update_id'))
-        if not mod:
-            mod=mod.create(update_id=update_bot,message=mesg_mod)
-            mod.save()
+            print 'MESSAGE is_valid'
+            mesg_ser.save()
+        mod = self.Meta.model.objects.filter(update_id=update_bot)
+        #if not mod:
+        #    mod.create(update_id=update_bot,**validated_data)
+        #    mod.save()
         return mod
     

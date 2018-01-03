@@ -53,11 +53,9 @@ class Chat(models.Model):
 class Message(models.Model):
 
     message_id = models.BigIntegerField( primary_key=True)
-    from_user = models.ForeignKey(User, related_name='messages', verbose_name="User")
-    date = models.DateTimeField('Date')
-    chat = models.ForeignKey(Chat, related_name='messages', verbose_name="Chat")
-    forward_from = models.ForeignKey(User, null=True, blank=True, related_name='forwarded_from',
-                                     verbose_name="Forward from")
+    from_user = models.ForeignKey(User, related_name='Messages', verbose_name="User")
+    date = models.IntegerField(default=0)
+    chat = models.ForeignKey(Chat, related_name='Messages', verbose_name="Chat")
     text = models.TextField(null=True, blank=True, verbose_name="Text")
     
 
@@ -72,7 +70,7 @@ class Update(models.Model):
     
     update_id = models.BigIntegerField('Id', primary_key=True)
     message = models.ForeignKey(Message, null=True, blank=True, verbose_name='Message', 
-                                related_name="updates")
+                                related_name="Updates")
     
     class Meta:
         verbose_name = 'Update'
