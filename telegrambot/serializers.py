@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'username','is_bot' , 'language_code')
+        fields = ('id', 'first_name', 'username','is_bot', 'language_code')
         
 
 
@@ -30,7 +30,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         if data.get('from'):
-            data['from_user']=data.pop('from')
+            data['from_user'] = data.pop('from')
         return data
 
 
@@ -40,3 +40,7 @@ class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Update
         fields = ('update_id', 'message')
+
+    def create(self, validated_data):
+        print self.message
+        return Update.objects.create(**validated_data)

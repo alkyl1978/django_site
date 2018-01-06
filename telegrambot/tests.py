@@ -28,9 +28,7 @@ class UpdateMessageTest(TestCase):
     def test_update_serializers(self):
          self.assertEqual(Bot.objects.count(),1)
          serializer = UpdateSerializer(data=self.data)
-         print serializer
          self.assertTrue(serializer.is_valid())
-
          serializer.save()
          self.assertEqual(User.objects.count(),1)
          self.assertEqual(Chat.objects.count(),1)
