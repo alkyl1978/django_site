@@ -46,16 +46,14 @@ class Chat(models.Model):
 
     def __unicode__(self):
         return "%s" % (self.title or self.username)
-    
-    def is_authenticated(self):
-        return hasattr(self, 'auth_token') and not self.auth_token.expired()
+
 
 class Message(models.Model):
 
     message_id = models.BigIntegerField( primary_key=True)
-    from_user = models.ForeignKey(User, related_name='Messages', verbose_name="User")
-    date = models.IntegerField(default=0)
-    chat = models.ForeignKey(Chat, related_name='Messages', verbose_name="Chat")
+    from_user = models.ForeignKey(User, related_name='message', verbose_name="User")
+    date = models.DateField()
+    chat = models.ForeignKey(Chat, related_name='message', verbose_name="Chat")
     text = models.TextField(null=True, blank=True, verbose_name="Text")
     
 
@@ -69,8 +67,7 @@ class Message(models.Model):
 class Update(models.Model):
     
     update_id = models.BigIntegerField('Id', primary_key=True)
-    message = models.ForeignKey(Message, null=True, blank=True, verbose_name='Message', 
-                                related_name="Updates")
+    message = models.ForeignKey(Message, null=True, blank=True, verbose_name='Message', related_name="update")
     
     class Meta:
         verbose_name = 'Update'
