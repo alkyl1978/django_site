@@ -7,7 +7,7 @@ import logging
 
 logger = logging.getLogger('telegrambot')
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
 
     class Meta:
@@ -21,7 +21,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             mod.save()
         return mod
 
-class ChatSerializer(serializers.HyperlinkedModelSerializer):
+class ChatSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
 
     class Meta:
@@ -35,7 +35,7 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
             mod.save()
         return mod
 
-class MessageSerializer(serializers.HyperlinkedModelSerializer):
+class MessageSerializer(serializers.ModelSerializer):
     message_id = serializers.IntegerField()
     from_user  = UserSerializer(many=False)
     chat       = ChatSerializer(many=False)
@@ -45,6 +45,7 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Message
         fields = ('message_id', 'from_user', 'date', 'chat', 'text')
+        depth = 1
 
     def to_internal_value(self, data):
         if data.get('from'):
@@ -52,43 +53,24 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
         return data
 
     def create(self, validated_data):
-        data_user = validated_data.pop('from_user').get('id')
-        data_chat = validated_data.pop('chat').get('id')
-        message_id = validated_data.get('message_id')
-        mod_mesg = self.Meta.model.objects.filter(message_id=message_id)
-        if not mod_mesg:
-            mod_mesg=mod_mesg.create(from_user=data_user,chat=data_chat,**validated_data)
-            mod_mesg.save()
-        return mod_mesg
-    
-class UpdateSerializer(serializers.HyperlinkedModelSerializer):
+        print validated_data
+        return Message.objects.create(**validated_data)
+
+class UpdateSerializer(serializers.ModelSerializer):
     update_id = serializers.IntegerField()
     message = MessageSerializer(many=False)
     
     class Meta:
         model = Update
         fields = ('update_id', 'message')
+        depth = 1
+
+    def update(self, instance, validated_data):
+        print validated_data
+        return instance
 
     def create(self, validated_data):
-        user_bot = validated_data.get('message').get('from_user')
-        chat_bot = validated_data.get('message').get('chat')
-        mesg_bot = validated_data.get('message')
-        update_bot = validated_data.pop('update_id')
-        user_ser = UserSerializer(data=user_bot)
-        if user_ser.is_valid():
-             user_ser.save()
-             print 'USER is_valid'
-        chat_ser = ChatSerializer(data=chat_bot)
-        if chat_ser.is_valid():
-             chat_ser.save()
-             print 'CHAT is_valid'
-        mesg_ser = MessageSerializer(data=mesg_bot)
-        if mesg_ser.is_valid():
-            print 'MESSAGE is_valid'
-            mesg_ser.save()
-        mod = self.Meta.model.objects.filter(update_id=update_bot)
-        #if not mod:
-        #    mod.create(update_id=update_bot,**validated_data)
-        #    mod.save()
-        return mod
-    
+        mesg = validated_data.pop('message')
+        mesg_mod = Message.objects.filter(message_id=mesg.get('message_id'))
+        print mesg_mod
+        return Update.objects.create(Message=mesg_mod ,**validated_data)

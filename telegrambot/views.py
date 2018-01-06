@@ -4,7 +4,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from telegrambot.serializers import UpdateSerializer
 from rest_framework import status
-from .tasks import bot_update
 from telegrambot.models.bot import Bot
 import logging
 
